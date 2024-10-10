@@ -14,6 +14,8 @@ public class GameEngine
     private readonly IRoomFactory _roomFactory;
     private ICharacter _player;
     private ICharacter _goblin;
+    private ICharacter _wraith;
+    private ICharacter _troll;
 
     private List<IRoom> _rooms;
 
@@ -123,12 +125,15 @@ public class GameEngine
     private void LoadMonsters()
     {
         _goblin = _context.Characters.OfType<Goblin>().FirstOrDefault();
+        _wraith = _context.Characters.OfType<Wraith>().FirstOrDefault();
+        _troll = _context.Characters.OfType<Troll>().FirstOrDefault();
 
         var random = new Random();
         var randomRoom = _rooms[random.Next(_rooms.Count)];
-        randomRoom.AddCharacter(_goblin); // Use helper method
 
-        // TODO Load your two new monsters here into the same room
+        randomRoom.AddCharacter(_goblin);
+        randomRoom.AddCharacter(_wraith);
+        randomRoom.AddCharacter(_troll);
     }
 
     private void SetupGame()

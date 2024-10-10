@@ -47,5 +47,37 @@
     "Level": 2,
     "HP": 8,
     "Treasure": null
+  },
+  {
+    "$type": "Wraith",
+    "Name": "Shadow Wraith",
+    "Type": "Wraith",
+    "Level": 3,
+    "HP": 12,
+    "Treasure": "haunting gem"
+  },
+  {
+    "$type": "Wraith",
+    "Name": "Eerie Wraith",
+    "Type": "Wraith",
+    "Level": 3,
+    "HP": 12,
+    "Treasure": null
+  },
+  {
+    "$type": "Troll",
+    "Name": "Bridge Troll",
+    "Type": "Troll",
+    "Level": 4,
+    "HP": 15,
+    "Treasure": "golden club"
+  },
+  {
+    "$type": "Troll",
+    "Name": "Forest Troll",
+    "Type": "Troll",
+    "Level": 4,
+    "HP": 15,
+    "Treasure": null
   }
 ]
