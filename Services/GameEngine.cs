@@ -11,7 +11,6 @@ public class GameEngine
     private readonly MapManager _mapManager;
     private readonly MenuManager _menuManager;
     private readonly OutputManager _outputManager;
-
     private readonly IRoomFactory _roomFactory;
     private ICharacter _player;
     private ICharacter _goblin;
@@ -151,8 +150,7 @@ public class GameEngine
 
     private IRoom SetupRooms()
     {
-        // TODO Update this method to create more rooms and connect them together
-
+        // Create existing rooms
         var entrance = _roomFactory.CreateRoom("entrance", _outputManager);
         var treasureRoom = _roomFactory.CreateRoom("treasure", _outputManager);
         var dungeonRoom = _roomFactory.CreateRoom("dungeon", _outputManager);
@@ -160,6 +158,11 @@ public class GameEngine
         var armory = _roomFactory.CreateRoom("armory", _outputManager);
         var garden = _roomFactory.CreateRoom("garden", _outputManager);
 
+        // Create new rooms
+        var laboratory = _roomFactory.CreateRoom("laboratory", _outputManager);
+        var crypt = _roomFactory.CreateRoom("crypt", _outputManager);
+
+        // Connect existing rooms
         entrance.North = treasureRoom;
         entrance.West = library;
         entrance.East = garden;
@@ -176,9 +179,27 @@ public class GameEngine
 
         garden.West = entrance;
 
+        // Connect new rooms
+        library.North = laboratory;  // Connect library to laboratory
+        laboratory.South = library;  // Connect laboratory back to library
+
+        dungeonRoom.North = crypt;    // Connect dungeon to crypt
+        crypt.South = dungeonRoom;     // Connect crypt back to dungeon
+
         // Store rooms in a list for later use
-        _rooms = new List<IRoom> { entrance, treasureRoom, dungeonRoom, library, armory, garden };
+        _rooms = new List<IRoom>
+        {
+            entrance,
+            treasureRoom,
+            dungeonRoom,
+            library,
+            armory,
+            garden,
+            laboratory,
+            crypt
+        };
 
         return entrance;
     }
+
 }
