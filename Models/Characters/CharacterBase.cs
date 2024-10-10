@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using W8_assignment_template.Helpers;
+﻿using W8_assignment_template.Helpers;
 using W8_assignment_template.Interfaces;
 
 namespace W8_assignment_template.Models.Characters;
@@ -37,7 +36,6 @@ public abstract class CharacterBase : ICharacter
     public void Attack(ICharacter target)
     {
         // TODO Update this method to ensure the character is removed after attacking them
-
         OutputManager.WriteLine($"{Name} attacks {target.Name} with a chilling touch.", ConsoleColor.Blue);
 
         if (this is Player player && target is ILootable targetWithTreasure && !string.IsNullOrEmpty(targetWithTreasure.Treasure))
@@ -54,6 +52,8 @@ public abstract class CharacterBase : ICharacter
             playerWithGold.Gold += targetWithGold.Gold;
             targetWithGold.Gold = 0; // Gold is taken
         }
+
+        _currentRoom.Characters.Remove(target);
     }
 
     public void Move(IRoom? nextRoom)
