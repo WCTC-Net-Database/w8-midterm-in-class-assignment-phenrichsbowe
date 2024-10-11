@@ -22,7 +22,6 @@ public class Room : IRoom
         Characters = new List<ICharacter>();
     }
 
-
     public void Enter()
     {
         _outputManager.WriteLine($"You have entered {Name}. {Description}", ConsoleColor.Green);
