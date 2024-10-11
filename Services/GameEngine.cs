@@ -37,20 +37,40 @@ public class GameEngine
     }
 
     private void AttackCharacter()
-    {
-        // TODO Update this method to allow for attacking a selected monster in the room.
-        // TODO e.g. "Which monster would you like to attack?"
-        // TODO Right now it just attacks the first monster in the room.
-        // TODO It is ok to leave this functionality if there is only one monster in the room.
-        var target = _player.CurrentRoom.Characters.FirstOrDefault(c => c != _player);
-        if (target != null)
+    {   
+        var currentRoom = _player.CurrentRoom;
+        var selectedCharacter = _player.CurrentRoom.Characters.FirstOrDefault(c => c != _player);
+
+        if (currentRoom.Characters.Count >= 2)
         {
-            _player.Attack(target);
+            _outputManager.WriteLine("Select a character from the list to attack:");
+
+            for (int characterIndex = 0; characterIndex < currentRoom.Characters.Count; characterIndex++)
+            {
+                _outputManager.WriteLine($"{characterIndex}: {currentRoom.Characters[characterIndex].Name}");
+            }
+
+            _outputManager.Display();
+
+            int selectedCharacterIndex;
+
+            while (true)
+            {
+                string? input = Console.ReadLine();
+
+                if (int.TryParse(input, out selectedCharacterIndex) && selectedCharacterIndex <= currentRoom.Characters.Count)
+                {
+                    break;
+                }
+
+                _outputManager.WriteLine("Invalid choice. Please select a valid character number.");
+                _outputManager.Display();
+            }
+
+            selectedCharacter = currentRoom.Characters[selectedCharacterIndex];
         }
-        else
-        {
-            _outputManager.WriteLine("No characters to attack.", ConsoleColor.Red);
-        }
+
+        _player.Attack(selectedCharacter);
     }
 
     private void GameLoop()
